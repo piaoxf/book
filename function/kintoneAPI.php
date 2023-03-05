@@ -78,9 +78,9 @@ function insert(){
         ),
     );
     $context = stream_context_create($options);
-    $url = "https://{$domain}.cybozu.com/k/v1/record.json";
-    $result = file_get_contents($url, false, $context);
-    return $result;
+    $contents = file_get_contents( 'https://'.$domain .'.cybozu.com/k/v1/records.json?app='. $app_id , FALSE, $context );
+    $data = json_decode($contents, true);
+    return $data;
 }
 
 

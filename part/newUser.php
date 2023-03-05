@@ -1,9 +1,10 @@
 <!-- username -->
-<div class="container-sm">
-    <div class="row">
+<div class="container-md">
+  <div class="center-block">
+    <div class="row ">
       <div class="col-md-2">
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 ">
         <input type="text" class="form-control" placeholder="First name" aria-label="First name">
       </div>
       <div class="col-md-4">
@@ -44,3 +45,5 @@
           </label>
         </div>
       </div>
+      </div>
+</div>
