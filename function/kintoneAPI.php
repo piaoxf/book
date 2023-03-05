@@ -55,9 +55,7 @@
 //   }
   
 
-$domain = 'p3x60ippiz4l';
-$app_id = '1';
-$api_token = 'fy4972cfKg707IhdDVQffPWx3rnFCnBmc9VcgtjL';
+
 
 function insert(){
     global $domain, $app_id, $api_token;
@@ -103,3 +101,49 @@ function select($filed){
     return $data['records'][0][$filed]['value'];
 }
 
+function new_select($domain, $api_token, $app_id){
+
+    $url = 'https://'.$domain .'.cybozu.com/k/v1/records.json?app='. $app_id;
+    $headers = [
+        "X-Cybozu-API-Token: ". $api_token,
+    ];
+
+    // 初期化
+    $curl = curl_init($url);
+
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($curl);
+    // echo $response;
+
+    curl_close($curl);
+}
+
+function new_insert($domain, $api_token, $app_id, $body){
+    $url = 'https://'.$domain .'.cybozu.com/k/v1/record.json';
+    $data = [
+        'app' => $app_id,
+        'record' => $body,
+    ];
+
+    $headers = [
+        "X-Cybozu-API-Token: ". $api_token,
+        'Content-Type: application/json'
+    ];
+
+    // JSONに変換
+    $json = json_encode($data);
+
+    // 初期化
+    $curl = curl_init($url);
+
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+
+    $response = curl_exec($curl);
+    // echo $response;
+    curl_close($curl);
+
+}
