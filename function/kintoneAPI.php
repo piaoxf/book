@@ -147,3 +147,134 @@ function new_insert($domain, $api_token, $app_id, $body){
     curl_close($curl);
 
 }
+
+function kintone_update($KINTONE_SUB_DOMAIN,$KINTONE_TOKEN,$KINTONE_APPNO,$body){
+  
+  $url = 'https://'.$KINTONE_SUB_DOMAIN.'.cybozu.com/k/v1/record.json';
+  $headers = [
+    'X-Cybozu-API-Token: '.$KINTONE_TOKEN,
+    'Content-Type: application/json'
+  ];
+
+  // JSONに変換
+  $json = json_encode($body);
+
+  // 初期化
+  $curl = curl_init($url);
+  
+  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+  
+  echo "<div style='display:none;'>";
+  $rtn = curl_exec($curl);
+  echo "</div>";
+  curl_close($curl);
+
+  return $rtn;
+}
+
+function kintone_insert($KINTONE_SUB_DOMAIN,$KINTONE_TOKEN,$KINTONE_APPNO,$body){
+  
+  $url = 'https://'.$KINTONE_SUB_DOMAIN.'.cybozu.com/k/v1/record.json';
+  $headers = [
+    'X-Cybozu-API-Token: '.$KINTONE_TOKEN,
+    'Content-Type: application/json'
+  ];
+  
+  // JSONに変換
+  $json = json_encode($body);
+
+//echo "<br>";
+//echo $json;
+//echo "<br>";
+
+  // 初期化
+  $curl = curl_init($url);
+
+  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+
+  echo "<div style='display:none;'>";
+  $rtn = curl_exec($curl);
+  echo "</div>";
+  
+  curl_close($curl);
+  
+  return $rtn;
+}
+
+function kintone_insert_multi($KINTONE_SUB_DOMAIN, $KINTONE_TOKEN, $body){
+  
+  $url = 'https://'.$KINTONE_SUB_DOMAIN.'.cybozu.com/k/v1/records.json';
+  $headers = [
+    'X-Cybozu-API-Token: '.$KINTONE_TOKEN,
+    'Content-Type: application/json'
+  ];
+  
+  // JSONに変換
+  $json = json_encode($body);
+
+  // 初期化
+  $curl = curl_init($url);
+
+  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+
+  $rtn = curl_exec($curl);
+  
+  curl_close($curl);
+  
+  return $rtn;
+}
+
+
+function kintone_delete($KINTONE_SUB_DOMAIN,$KINTONE_TOKEN,$KINTONE_APPNO,$body){
+  
+  $url = 'https://'.$KINTONE_SUB_DOMAIN.'.cybozu.com/k/v1/records.json';
+  $headers = [
+    'X-Cybozu-API-Token: '.$KINTONE_TOKEN,
+    'Content-Type: application/json'
+  ];
+
+  // JSONに変換
+  $json = json_encode($body);
+  
+  // 初期化
+  $curl = curl_init($url);
+
+  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+
+  $response = curl_exec($curl);
+  $rtn=$response;
+  curl_close($curl);
+  
+  return $rtn;
+}
+
+
+function kintone_select($KINTONE_SUB_DOMAIN, $KINTONE_TOKEN, $KINTONE_APPNO, $Where=''){
+  
+  //kintoneアクセス
+  $options = array(
+      'http'=>array(
+          'method'=>'GET',
+          'header'=> "X-Cybozu-API-Token:". $KINTONE_TOKEN ."\r\n"
+      )
+  );
+  $context = stream_context_create($options);
+  
+  //検索条件を指定してレコード取得
+  $sURL='https://'. $KINTONE_SUB_DOMAIN .'.cybozu.com/k/v1/records.json?&app='. $KINTONE_APPNO.'&query='.urlencode($Where);
+  
+  $contents = file_get_contents($sURL , FALSE, $context);
+  
+  //JSON形式からArrayに変換
+  $data = json_decode($contents, true);
+  
+  return $data;
+}

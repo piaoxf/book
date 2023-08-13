@@ -24,3 +24,13 @@
       background-color: #85e3ec;
     }
   }
+/* header{
+    width: 100%;
+    margin: 5px auto;
+    padding: 5px auto;
+} */
+footer{
+    width: 100%;
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}

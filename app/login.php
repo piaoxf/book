@@ -1,12 +1,12 @@
 <?php
-  require_once __DIR__ . '/../function/kintoneAPI.php';
-  // var_dump(select('password'));
+  require_once __DIR__  . '/../function/kintoneAPI.php';
+  var_dump( __DIR__  . '/../function/kintoneAPI.php' );
 ?>
 
   <br><br><br><br>
   <div class="container-sm">
     <!-- <form class="form-horizontal" method="POST" action="login_check.php"> -->
-    <form class="form-horizontal" method="POST" action="part/login_check.php">
+    <form class="form-horizontal" method="POST" action="app/login_check.php">
       <div class="form-group">
 
         <div class="row d-flex justify-content-center">
