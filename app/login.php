@@ -1,11 +1,9 @@
 <?php
   require_once __DIR__  . '/../function/kintoneAPI.php';
-  var_dump( __DIR__  . '/../function/kintoneAPI.php' );
 ?>
 
   <br><br><br><br>
   <div class="container-sm">
-    <!-- <form class="form-horizontal" method="POST" action="login_check.php"> -->
     <form class="form-horizontal" method="POST" action="app/login_check.php">
       <div class="form-group">
 
@@ -28,12 +26,7 @@
         <br>
         <div class="row d-flex justify-content-center text-center">
           <div class="col">
-            <!-- <input class="btn btn-primary" onclick="location.href='part/newUser.php'" value="new user"> -->
-              <!-- <button class="btn btn-primary btn-md" onclick="loction.href='newUser.php'">new user</button> -->
-            <!-- </div>
-            <div class="col-1"> -->
               <button type="submit" class="btn btn-primary">Sign in</button>
-            <!-- </div> -->
           </div>
         </div>
 

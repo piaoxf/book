@@ -1,7 +1,6 @@
 <?php
   define("SYSNAME", "読書アプリ" )  ;
   require_once __DIR__ . '/part/source.php';
-  session_start();
 ?>
 
 <body>

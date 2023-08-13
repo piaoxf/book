@@ -1,5 +1,6 @@
 <?php
-var_dump(__DIR__);
+
+require_once __DIR__ . '/../common/session_check.php';
 require_once __DIR__ . '/../part/source.php';
 require_once __DIR__ . '/../common/const.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';

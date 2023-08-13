@@ -148,7 +148,7 @@ function new_insert($domain, $api_token, $app_id, $body){
 
 }
 
-function kintone_update($KINTONE_SUB_DOMAIN,$KINTONE_TOKEN,$KINTONE_APPNO,$body){
+function kintone_update($KINTONE_SUB_DOMAIN, $KINTONE_TOKEN, $body){
   
   $url = 'https://'.$KINTONE_SUB_DOMAIN.'.cybozu.com/k/v1/record.json';
   $headers = [
@@ -166,9 +166,9 @@ function kintone_update($KINTONE_SUB_DOMAIN,$KINTONE_TOKEN,$KINTONE_APPNO,$body)
   curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
   curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
   
-  echo "<div style='display:none;'>";
+  // echo "<div style='display:none;'>";
   $rtn = curl_exec($curl);
-  echo "</div>";
+  // echo "</div>";
   curl_close($curl);
 
   return $rtn;

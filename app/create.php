@@ -1,5 +1,6 @@
 <?php
-    require_once __DIR__ . '/../const.php';
+    require_once __DIR__ . '/../common/session_check.php';
+    require_once __DIR__ . '/../common/const.php';
     require_once __DIR__ . '/../part/source.php';
     require_once __DIR__ . '/../part/navi.php';
     require_once __DIR__ . '/../part/header.php';
@@ -23,12 +24,13 @@
 ?>
 
 <div class="container-sm">
-    <form class="form-horizontal" method="POST" action="/book/part/creat_insert.php">
+    <form class="form-horizontal" method="POST" action="creat_insert.php">
         <div class="form-group">
 
             <div class="row">
                 <div class="text-center">
                     <img src="/book/images/title.png" class="rounded" style="width: 10%;" alt="...">
+                    <!-- <img src="/book/images/title.png" class="rounded" style="width: 10%;" alt="..."> -->
                 </div>
             </div>
 
@@ -65,11 +67,11 @@
                     <select class="form-select" name="bookType" aria-label="Default select example">
                         <option value="">選択してください</option>
                         <option value="コンピューター・IT" <?= ($bookType == 'コンピューター・IT' ? 'selected' : '') ?>>コンピューター・IT</option>
-                        <option value="社会・政治">社会・政治</option>
-                        <option value="ビジネス・経済">ビジネス・経済</option>
-                        <option value="小説">小説</option>
-                        <option value="漫画">漫画</option>
-                        <option value="雑誌">雑誌</option>
+                        <option value="社会・政治" <?= ($bookType == '社会・政治' ? 'selected' : '') ?>>社会・政治</option>
+                        <option value="ビジネス・経済" <?= ($bookType == 'ビジネス・経済' ? 'selected' : '') ?>>ビジネス・経済</option>
+                        <option value="小説" <?= ($bookType == '小説' ? 'selected' : '') ?>>小説</option>
+                        <option value="漫画" <?= ($bookType == '漫画' ? 'selected' : '') ?>>漫画</option>
+                        <option value="雑誌" <?= ($bookType == '雑誌' ? 'selected' : '') ?>>雑誌</option>
                     </select>
                 </div>
             </div>
@@ -81,6 +83,8 @@
                 <textarea class="form-control" id="coment" rows="3" name="coment"><?php echo $coment; ?></textarea>
             </div>
             <br>
+
+            <input type="text" name="record" value="<?= $record ?>" hidden>
 
         </div>
         <br>

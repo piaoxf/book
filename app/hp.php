@@ -1,17 +1,17 @@
 
 <?php
-if(!isset($_SESSION['userID'])){//認証されていない場合、indexに遷移
-  var_dump($_SESSION['userID']);
-  echo "セッションが切れた";exit;
-  header("Location: http://" . $_SERVER["HTTP_HOST"] . "/book");
-  exit;
-}
+require_once __DIR__ . '/../common/session_check.php';
 require_once __DIR__ . '/../common/const.php';
 require_once __DIR__ . '/../part/source.php';
 require_once __DIR__ . '/../part/navi.php';
 require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
 
+if(!isset($_SESSION['userID'])){//認証されていない場合、indexに遷移
+  echo "セッションが切れた";
+  header("Location: http://" . $_SERVER["HTTP_HOST"] . "/book");
+  exit;
+}
 //kintoneからデータ取得
 $data_reading = array();
 $where = '';
