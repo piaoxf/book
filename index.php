@@ -13,13 +13,17 @@
   <br><br><br><br>
   <?php
     require_once __DIR__ . '/part/navi.php';
-    require_once __DIR__ . '/part/header.php';
+    // echo '<div class="alert alert-warning text-center text-danger" role="alert">';
+    // // echo '<p class="text-danger">〇〇が間違ってます</p>';
+    // echo '〇〇が間違ってます';
+    // echo '</div>';  
     // var_dump($_GET['error']);exit;
     if(isset($_GET['error'])){
-      echo '<div class="alert alert-primary" role="alert">';
+      echo '<div class="alert alert-warning text-center text-danger" role="alert">';
       echo $_GET['error'];
       echo '</div>';
     }
+    require_once __DIR__ . '/part/header.php';
   ?>
   <div class="container-sm">
     <form class="form-horizontal" method="POST" action="app/login_check.php">
