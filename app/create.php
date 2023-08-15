@@ -6,20 +6,28 @@
     require_once __DIR__ . '/../part/header.php';
     require_once __DIR__ . '/../function/kintoneAPI.php';
 
-    if(!isset($_GET['record'])){
-        header('Location:https://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/hp.php');
-        exit;
+    $record = '';
+    $update = '';
+    $create = '';
+    $BookName = '';
+    $author = '';
+    $bookType = '';
+    $comment = '';
+    $file = '';
+    if(isset($_GET['record'])){//既存データの編集
+        $where = 'record =' . $_GET['record']; 
+        $datas = array();
+        $datas = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
+        $record = $datas['records'][0]['record']['value'];
+        $update = $datas['records'][0]['更新日時']['value'];
+        $create = $datas['records'][0]['作成日時']['value'];
+        $BookName = $datas['records'][0]['書籍名']['value'];
+        $author = $datas['records'][0]['作者']['value'];
+        $bookType = $datas['records'][0]['タイプ']['value'];
+        $comment = $datas['records'][0]['感想']['value'];
+        $file = $datas['records'][0]['link']['value'];
     }
-    $where = 'record =' . $_GET['record']; 
-    $datas = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
-    $record = $datas['records'][0]['record']['value'];
-    $update = $datas['records'][0]['更新日時']['value'];
-    $creat = $datas['records'][0]['作成日時']['value'];
-    $BookName = $datas['records'][0]['書籍名']['value'];
-    $author = $datas['records'][0]['作者']['value'];
-    $bookType = $datas['records'][0]['タイプ']['value'];
-    $coment = $datas['records'][0]['感想']['value'];
-    $file = $datas['records'][0]['link']['value'];
+    
 
 ?>
 
@@ -43,7 +51,13 @@
                         <!-- <button type="submit" class="btn btn-primary">upload</button> -->
                     </div>
                 </div>
-                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <label for="BookName" class="form-label">作成日時</label>
+                    <p class="badge bg-primary" id="create" name="create"><?= $create ?></p>
+                    <!-- <div class="badge bg-primary text-wrap" style="width: 6rem;">
+                            This text should wrap.
+                    </div> -->
+                </div>
             </div>
             <br>
 
@@ -80,7 +94,7 @@
             <br>
             <div class="col">
                 <label for="coment" class="form-label">感想</label>
-                <textarea class="form-control" id="coment" rows="3" name="coment"><?php echo $coment; ?></textarea>
+                <textarea class="form-control" id="coment" rows="3" name="coment"><?php echo $comment; ?></textarea>
             </div>
             <br>
 

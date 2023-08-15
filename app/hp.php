@@ -14,8 +14,8 @@ if(!isset($_SESSION['userID'])){//認証されていない場合、indexに遷�
 }
 //kintoneからデータ取得
 $data_reading = array();
-$where = '';
-$data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING);
+$where = 'record =' . $_SESSION['userID'];
+$data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
 
 ?>
 
@@ -25,6 +25,8 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
 });
 </script>
 
+<input type="button" class="btn btn-secondary" value="履歴一覧" disabled>
+<a class="btn btn-warning btn-sm mx-3" href="create.php" role="button">新規</a> 
 <table class="table" id="fav-table">
   <thead>
     <tr>
@@ -54,7 +56,8 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
       </th>
       <th scope="row"><?= $i+1 ?></th>
       <td>
-        <img src="<?= $data_reading['records'][$i]['file']['value'] ?>" class="img-responsive" >       
+        <!-- <img src="<?= $data_reading['records'][$i]['file']['value'] ??'' ?>" class="img-responsive" >        -->
+        <img src="" class="img-responsive" >       
       </td>
       <td><?= $data_reading['records'][$i]['書籍名']['value'] ?></td>
       <td><?= $data_reading['records'][$i]['作者']['value'] ?></td>

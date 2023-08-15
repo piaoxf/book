@@ -3,6 +3,14 @@
 ?>
 
   <br><br><br><br>
+<?php
+// var_dump($_GET['error']);exit;
+if(isset($_GET['error'])){
+  echo '<div class="alert alert-primary" role="alert">';
+  echo $_GET['error'];
+  echo '</div>';
+}
+?>
   <div class="container-sm">
     <form class="form-horizontal" method="POST" action="app/login_check.php">
       <div class="form-group">
