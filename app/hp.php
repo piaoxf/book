@@ -42,24 +42,27 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
     //読書アプリのレコード数分表示する
     for($i=0; $i<count($data_reading['records']); $i++){
     $record = $data_reading['records'][$i]['record']['value'];
+    $fileName = $data_reading['records'][$i]['filename']['value'];
     $url = 'create.php' . '?record=' . $record;
+
+    $img = 'files/' . $record .'/' . $fileName;
 ?>
         <tr>
             <th width=60px>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                </div>
             </th>
             <th scope="row"><?= $i+1 ?></th>
             <td>
-            <!-- <img src="<?= $data_reading['records'][$i]['file']['value'] ??'' ?>" class="img-responsive" >        -->
-            <img src="" class="img-responsive" >       
+              <img src="<?= $img ?? '' ?>" class="img-thumbnail" style="width: 100px; height: 100px;">       
+            <!-- <img src="" class="img-responsive" >        -->
             </td>
-            <td><?= $data_reading['records'][$i]['書籍名']['value'] ?></td>
-            <td><?= $data_reading['records'][$i]['作者']['value'] ?></td>
-            <td><?= $data_reading['records'][$i]['タイプ']['value'] ?></td>
-            <td><?= $data_reading['records'][$i]['感想']['value'] ?></td>
-            <td><?= $data_reading['records'][$i]['更新日時']['value'] ?></td>
+                <td><?= $data_reading['records'][$i]['書籍名']['value'] ?></td>
+                <td><?= $data_reading['records'][$i]['作者']['value'] ?></td>
+                <td><?= $data_reading['records'][$i]['タイプ']['value'] ?></td>
+                <td><?= $data_reading['records'][$i]['感想']['value'] ?></td>
+                <td><?= $data_reading['records'][$i]['更新日時']['value'] ?></td>
             <td>
             
             <a class="btn btn-primary btn-sm" href="<?= $url ?>" role="button">編集</a>  

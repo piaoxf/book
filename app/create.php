@@ -16,7 +16,8 @@ $BookName = '';
 $author = '';
 $bookType = '';
 $comment = '';
-$file = '';
+$fileURL = '';
+$fileName = '';
 if(isset($_GET['record'])){//既存データの編集
     $where = 'record =' . $_GET['record']; 
     $datas = array();
@@ -28,9 +29,11 @@ if(isset($_GET['record'])){//既存データの編集
     $author = $datas['records'][0]['作者']['value'];
     $bookType = $datas['records'][0]['タイプ']['value'];
     $comment = $datas['records'][0]['感想']['value'];
-    $file = $datas['records'][0]['link']['value'];
+    $fileURL = $datas['records'][0]['fileURL']['value'];
+    $fileName = $datas['records'][0]['filename']['value'];
 } 
 
+$img = 'files/' . $record .'/' . $fileName;
 ?>
 
 <div class="container-sm">
@@ -39,7 +42,8 @@ if(isset($_GET['record'])){//既存データの編集
 
         <div class="row">
             <div class="text-center">
-                <img src="/book/images/title.png" class="rounded" style="width: 10%;" alt="...">
+                <!-- <img src="/book/images/title.png" class="rounded" style="width: 10%;" alt="..."> -->
+                <img src="<?= $img ?>" class="rounded" style="width: 10%;" alt="...">
                 <!-- <img src="/book/images/title.png" class="rounded" style="width: 10%;" alt="..."> -->
             </div>
         </div>

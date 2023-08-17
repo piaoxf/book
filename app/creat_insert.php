@@ -16,10 +16,11 @@ $bookName = postInit($_POST['BookName']);
 $author = postInit($_POST['author']);
 $bookType = postInit($_POST['bookType']);
 $comment = postInit($_POST['coment']);
-// $file = postInit($_POST['uploadedFile']);
+// $file = postInit($_FILES['uploadedFile']['name']);
+// var_dump($_FILES['uploadedFile']['name']);exit;
 
-fileUpload('uploadedFile');
-// var_dump($_FILES['uploadedFile']);exit;
+$file = fileUpload('uploadedFile', $record);
+// var_dump($file['name'], $file['url']);exit;
 
 //リダイレクト先のURLを取得
 $fullURL = getFullUrl('hp.php');
@@ -33,6 +34,8 @@ if($record == ''){//新規追加の場合：insertモード
             '作者'         => ['value' => $author],
             '感想'         => ['value' =>$comment],
             'タイプ'       => ['value' => $bookType],
+            'filename'    => ['value' => $file['name']],
+            'fileURL'     => ['value' => $file['url']],
             'user_record' => ['value' => $_SESSION['userID']],
         ],
     ];
@@ -50,11 +53,14 @@ if($record == ''){//新規追加の場合：insertモード
             '作者'         => ['value' => $author],
             '感想'         => ['value' => $comment],
             'タイプ'       => ['value' => $bookType],
+            'filename'    => ['value' => $file['name']],
+            'fileURL'     => ['value' => $file['url']],
             'user_record' => ['value' => $_SESSION['userID']],
         ],
     ];
+    // var_dump($body);exit;
     $rtn = kintone_update(KINTONE_DOMAIN, API_TOKEN_READING, $body);
-    
+    // var_dump($rtn);exit;
     header($fullURL, true, 301);
     exit;
 }
