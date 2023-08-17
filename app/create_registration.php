@@ -9,23 +9,24 @@ require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
 require_once __DIR__ . '/../function/function.php';
 
+$record = postInit($_POST['record']);
+$where = 'record ="' . $record . '"'; 
+$readingData = array();
+$readingData = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
+
 //データ加工
 $body = array(); //kintoneにruquestする配列
-$record = postInit($_POST['record']);
 $bookName = postInit($_POST['BookName']);
 $author = postInit($_POST['author']);
 $bookType = postInit($_POST['bookType']);
-$comment = postInit($_POST['coment']);
-// $file = postInit($_FILES['uploadedFile']['name']);
-// var_dump($_FILES['uploadedFile']['name']);exit;
+$comment = postInit($_POST['comment']);
 
 $file = fileUpload('uploadedFile', $record);
-// var_dump($file['name'], $file['url']);exit;
 
 //リダイレクト先のURLを取得
 $fullURL = getFullUrl('hp.php');
 
-if($record == ''){//新規追加の場合：insertモード
+if(count($readingData['records']) == 0){//新規追加の場合：insertモード
 
     $body = [//insert用データ
         'app'    => APP_ID_READING,
@@ -58,9 +59,8 @@ if($record == ''){//新規追加の場合：insertモード
             'user_record' => ['value' => $_SESSION['userID']],
         ],
     ];
-    // var_dump($body);exit;
     $rtn = kintone_update(KINTONE_DOMAIN, API_TOKEN_READING, $body);
-    // var_dump($rtn);exit;
+
     header($fullURL, true, 301);
     exit;
 }
