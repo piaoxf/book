@@ -34,7 +34,7 @@ if(isset($_GET['record'])){//既存データの編集
 ?>
 
 <div class="container-sm">
-<form class="form-horizontal" method="POST" action="creat_insert.php">
+<form class="form-horizontal" method="POST" enctype="multipart/form-data" action="creat_insert.php">
     <div class="form-group">
 
         <div class="row">
@@ -49,7 +49,7 @@ if(isset($_GET['record'])){//既存データの編集
             
             <div class="col-md-5">
                 <div class="input-group">
-                    <input type="file" class="form-control" id="inputGroupFile02" name="link">
+                    <input type="file" class="form-control" id="inputGroupFile02" name="uploadedFile">
                     <!-- <button type="submit" class="btn btn-primary">upload</button> -->
                 </div>
             </div>

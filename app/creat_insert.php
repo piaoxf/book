@@ -16,7 +16,10 @@ $bookName = postInit($_POST['BookName']);
 $author = postInit($_POST['author']);
 $bookType = postInit($_POST['bookType']);
 $comment = postInit($_POST['coment']);
-$file = postInit($_POST['link']);
+// $file = postInit($_POST['uploadedFile']);
+
+fileUpload('uploadedFile');
+// var_dump($_FILES['uploadedFile']);exit;
 
 //リダイレクト先のURLを取得
 $fullURL = getFullUrl('hp.php');
