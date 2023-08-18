@@ -9,37 +9,19 @@ require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
 require_once __DIR__ . '/../function/function.php';
 
-if($_GET['crud'] == 'delete'){
-    //delete record番号は配列で渡す必要がある
-    $ids = array();
-    $ids[] = $_GET['record'];
-    $body = [//delete用データ
-        'app'    => APP_ID_READING,
-        'ids'     => $ids, //読書テーブルのキー
-    ];
-    // var_dump($body);exit;
-    $rtn = kintone_delete(KINTONE_DOMAIN, API_TOKEN_READING, $body);
-    var_dump($rtn);exit;
-    header($fullURL, true, 301);
-    exit;
-}
-
-$record = postInit($_POST['record']);
-$where = 'record ="' . $record . '"'; 
-var_dump($where);exit;
-$readingData = array();
-$readingData = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
-
 //データ加工
 $body = array(); //kintoneにruquestする配列
+$record = postInit($_POST['record']);
 $crud = postInit($_POST['crud']);
 var_dump($crud);exit;
 $bookName = postInit($_POST['BookName']);
 $author = postInit($_POST['author']);
 $bookType = postInit($_POST['bookType']);
-$comment = postInit($_POST['comment']);
+$comment = postInit($_POST['coment']);
+// $file = postInit($_POST['uploadedFile']);
 
-$file = fileUpload('uploadedFile', $record);
+fileUpload('uploadedFile');
+// var_dump($_FILES['uploadedFile']);exit;
 
 //リダイレクト先のURLを取得
 $fullURL = getFullUrl('hp.php');
@@ -53,8 +35,6 @@ if($crud == 'insert'){//新規追加の場合：insertモード
             '作者'         => ['value' => $author],
             '感想'         => ['value' =>$comment],
             'タイプ'       => ['value' => $bookType],
-            'filename'    => ['value' => $file['name']],
-            'fileURL'     => ['value' => $file['url']],
             'user_record' => ['value' => $_SESSION['userID']],
         ],
     ];
@@ -73,13 +53,23 @@ if($crud == 'update') {//それ以外：updateモード
             '作者'         => ['value' => $author],
             '感想'         => ['value' => $comment],
             'タイプ'       => ['value' => $bookType],
-            'filename'    => ['value' => $file['name']],
-            'fileURL'     => ['value' => $file['url']],
             'user_record' => ['value' => $_SESSION['userID']],
         ],
     ];
     $rtn = kintone_update(KINTONE_DOMAIN, API_TOKEN_READING, $body);
+    
+    header($fullURL, true, 301);
+    exit;
+}
+if($crud == 'delete'){
 
+    $body = [//delete用データ
+        'app'    => APP_ID_READING,
+        'id'     => $record, //読書テーブルのキー
+    ];
+
+    $rtn = kintone_delete(KINTONE_DOMAIN, API_TOKEN_READING, $body);
+    
     header($fullURL, true, 301);
     exit;
 }

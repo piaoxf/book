@@ -10,6 +10,7 @@ require_once __DIR__ . '/../function/kintoneAPI.php';
 
 //パラメータチェック あり：更新モード  なし：新規モード
 $record = isset($_GET['record']) ? $_GET['record'] : ''; //読書アプリのレコード番号
+$crud = isset($_GET['crud']) ? $_GET['crud'] : '';
 
 //データ取得
 $where = 'record ="' . $record . '"'; //検索条件 recordパラメータが設定なしの場合、０件
@@ -101,6 +102,7 @@ foreach (BOOK_TYPE as $key => $value) {
             <br>
 
             <input type="text" name="record" value="<?= $record ?>" hidden>
+            <input type="text" name="crud" value="<?= $crud ?>" hidden>
 
         </div>
         <br>

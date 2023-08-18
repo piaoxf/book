@@ -12,6 +12,7 @@ require_once __DIR__ . '/../function/kintoneAPI.php';
 $data_reading = array();
 $where = 'user_record =' . $_SESSION['userID'];
 $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
+$url_insert = 'create.php?crud=insert';
 ?>
 
 <script type="text/javascript">
@@ -21,7 +22,7 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
 </script>
 
 <input type="button" class="btn btn-secondary" value="履歴一覧" disabled>
-<a class="btn btn-warning btn-sm mx-3" href="create.php" role="button">新規</a> 
+<a class="btn btn-warning btn-sm mx-3" href="<?= $url_insert ?>" role="button">新規</a> 
 <table class="table" id="fav-table">
     <thead>
         <tr>
@@ -33,7 +34,7 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
             <th scope="col">category</th>
             <th scope="col">感想</th>
             <th scope="col">更新日</th>
-            <th scope="col">操作</th>
+            <th scope="col" width="120px">操作</th>
         </tr>
     </thead>
 
@@ -43,7 +44,8 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
     for($i=0; $i<count($data_reading['records']); $i++){
     $record = $data_reading['records'][$i]['record']['value'];
     $fileName = $data_reading['records'][$i]['filename']['value'];
-    $url = 'create.php' . '?record=' . $record;
+    $url_update = 'create.php' . '?record=' . $record . '&crud=update';
+    $url_delete = 'create_registration.php' . '?record=' . $record . '&crud=delete';
 
     $img = 'files/' . $record .'/' . $fileName;
 ?>
@@ -65,7 +67,8 @@ $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING
                 <td><?= $data_reading['records'][$i]['更新日時']['value'] ?></td>
             <td>
             
-            <a class="btn btn-primary btn-sm" href="<?= $url ?>" role="button">編集</a>  
+                <a class="btn btn-primary btn-sm" href="<?= $url_update ?>" role="button">編集</a>  
+                <a class="btn btn-danger btn-sm" href="<?= $url_delete ?>" role="button">削除</a>  
             </td>
         </tr>
 <?php
