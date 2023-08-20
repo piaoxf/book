@@ -1,4 +1,3 @@
-<br>
 <header>
     <br>
     <div>
@@ -6,6 +5,5 @@
     </div>
 </header>
 <br>
-<hr>
-<br>
+
 

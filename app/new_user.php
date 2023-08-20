@@ -1,12 +1,9 @@
 <?php
-/* 読書の一覧画面 */
+/* 新規ユーザー登録画面 */
 
-require_once __DIR__ . '/../common/session_check.php';
 require_once __DIR__ . '/../common/const.php';
 require_once __DIR__ . '/../part/source.php';
-require_once __DIR__ . '/../part/navi.php';
 require_once __DIR__ . '/../part/header.php';
-require_once __DIR__ . '/../function/kintoneAPI.php';
 
 ?>
 <h1>新規ユーザー登録</h1>

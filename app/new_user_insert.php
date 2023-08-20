@@ -1,26 +1,29 @@
 <?php
 /* ユーザーパスワード変更処理API */
 
-require_once __DIR__ . '/../common/session_check.php';
 require_once __DIR__ . '/../common/const.php';
-require_once __DIR__ . '/../part/source.php';
-require_once __DIR__ . '/../part/navi.php';
-require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
+require_once __DIR__ . '/../function/function.php';
 
 //リダイレクト先のURLを取得
-$fullURL = getFullUrl('index.php');
-
+$index = getFullUrl('../index.php');
+$url = '../index.php';
 if(empty($_POST['email']) || empty($_POST['password'])){
-    header($fullURL, true, 301);
+    header($index, true, 301);
     exit;
 }
 //データ取得
 $datas = array(); //kintoneから取得してデータを格納
 $datas = kintone_select(KINTONE_DOMAIN, API_TOKEN_USER, APP_ID_USER);
 
-if(in_array($_POST['email'], $datas['records'])){ //既にemailが存在する場合、以降処理は中止
-    header(getIndexUrl() .  errorMessageSet('Emailアドレスが既に存在しています。'), true, 301);
+//既存のemailデータを取得
+$email = array();
+foreach ($datas['records'] as $key => $value) {
+    $email[] = $value['username']['value'];
+}
+
+if(in_array($_POST['email'], $email)){ //既にemailが存在する場合、以降処理は中止
+    header($index .  errorMessageSet('Emailアドレスが既に存在しています。'), true, 301);
     exit;
 }
 
@@ -42,5 +45,5 @@ $body = [//insert用データ
 ];
 $rtn = kintone_insert(KINTONE_DOMAIN, API_TOKEN_USER, $body);
 
-header(getIndexUrl() .  errorMessageSet('正常にユーザー登録ができました。ログインしてください。'), true, 301);
+header($index .  errorMessageSet('正常にユーザー登録ができました。ログインしてください。'), true, 301);
 exit;

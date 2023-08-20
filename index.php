@@ -1,10 +1,9 @@
 <?php
+/* index画面 */
   define("SYSNAME", "読書アプリ" )  ;
   require_once __DIR__ . '/part/source.php';
   require_once __DIR__ . '/function/function.php';
 
-  // require_once __DIR__ . '/app/login.php';
-  // require_once __DIR__  . '/../function/kintoneAPI.php';
 ?>
 
 <body>
@@ -13,12 +12,6 @@
 
   <br><br><br><br>
   <?php
-    // require_once __DIR__ . '/part/navi.php';
-    // echo '<div class="alert alert-warning text-center text-danger" role="alert">';
-    // // echo '<p class="text-danger">〇〇が間違ってます</p>';
-    // echo '〇〇が間違ってます';
-    // echo '</div>';  
-    // var_dump($_GET['error']);exit;
     if(isset($_GET['error'])){
       echo '<div class="alert alert-warning text-center text-danger" role="alert">';
       echo $_GET['error'];
