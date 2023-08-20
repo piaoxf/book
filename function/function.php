@@ -30,6 +30,20 @@ function getFullUrl($fileName=''){
     return $fullURL;
 }
 /**
+ * urlを返却（絶対パス）
+ * 
+ * @param string $fileName リダイレクトするファイル名 (default:空)
+ * 
+ * @return string $fullURL ファイルパス
+ */
+function getFullUrl2($fileName=''){
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'];
+    $path = dirname($_SERVER['PHP_SELF']);
+    $fullURL = $protocol . '://' . $host . $path . '/' .$fileName;
+    return $fullURL;
+}
+/**
  * header()用のurlを返却　（ログイン画面）
  * 
  * @return string $fullURL 「Location: 」 + ログイン画面ファイルパス

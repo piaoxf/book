@@ -9,6 +9,9 @@ require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
 require_once __DIR__ . '/../function/function.php';
 
+//リダイレクト先のURLを取得
+$fullURL = getFullUrl('hp.php');
+
 if($_GET['crud'] == 'delete'){
     //delete record番号は配列で渡す必要がある
     $ids = array();
@@ -17,32 +20,26 @@ if($_GET['crud'] == 'delete'){
         'app'    => APP_ID_READING,
         'ids'     => $ids, //読書テーブルのキー
     ];
-    // var_dump($body);exit;
     $rtn = kintone_delete(KINTONE_DOMAIN, API_TOKEN_READING, $body);
-    var_dump($rtn);exit;
+
     header($fullURL, true, 301);
     exit;
 }
 
 $record = postInit($_POST['record']);
 $where = 'record ="' . $record . '"'; 
-var_dump($where);exit;
 $readingData = array();
 $readingData = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
 
 //データ加工
 $body = array(); //kintoneにruquestする配列
 $crud = postInit($_POST['crud']);
-var_dump($crud);exit;
 $bookName = postInit($_POST['BookName']);
 $author = postInit($_POST['author']);
 $bookType = postInit($_POST['bookType']);
 $comment = postInit($_POST['comment']);
 
 $file = fileUpload('uploadedFile', $record);
-
-//リダイレクト先のURLを取得
-$fullURL = getFullUrl('hp.php');
 
 if($crud == 'insert'){//新規追加の場合：insertモード
 
@@ -65,7 +62,7 @@ if($crud == 'insert'){//新規追加の場合：insertモード
 } 
 if($crud == 'update') {//それ以外：updateモード
 
-    $body = [//insert用データ
+    $body = [//update用データ
         'app'    => APP_ID_READING,
         'id'     => $record, //読書テーブルのキー
         'record' => [

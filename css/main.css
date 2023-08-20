@@ -29,8 +29,20 @@
     margin: 5px auto;
     padding: 5px auto;
 } */
+
+/* コンテナのスタイル */
+.footer-container {
+  position: relative;
+  min-height: 50vh;
+}
 footer{
     width: 100%;
-    /* position: absolute;←絶対位置 */
-    bottom: 0; /*下に固定*/
+    position: absolute; /*←絶対位置 */
+    bottom: 0; /* 下に固定 */
+} 
+/* レスポンシブデザインに対応 */
+@media (max-width: 768px) {
+  footer {
+    padding: 10px;
+  }
 }
