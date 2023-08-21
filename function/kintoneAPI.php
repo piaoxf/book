@@ -167,3 +167,37 @@ function kintone_select($KINTONE_SUB_DOMAIN, $KINTONE_TOKEN, $KINTONE_APPNO, $Wh
   
   return $data;
 }
+/**
+ * kintoneにファイルをアップする
+ * 
+ * @param string $KINTONE_SUB_DOMAIN ドメイン名
+ * @param string $KINTONE_TOKEN アクセス権-token
+ * @param array $body 登録するデータを配列で指定 
+ * 
+ * @return boolean $rtn 「true」:成功 「false」:失敗
+ */
+function kintone_fileupload($KINTONE_SUB_DOMAIN, $KINTONE_TOKEN, $body){
+  
+  $url = 'https://'.$KINTONE_SUB_DOMAIN.'.cybozu.com/k/v1/file.json';
+  $headers = [
+    'X-Cybozu-API-Token: '.$KINTONE_TOKEN,
+    // 'Content-Type: application/json'
+    'Content-Type: multipart/form-data'
+  ];
+  
+  // JSONに変換
+  $json = json_encode($body);
+
+  // 初期化
+  $curl = curl_init($url);
+
+  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+
+  $rtn = curl_exec($curl);
+  
+  curl_close($curl);
+  
+  return $rtn;
+}
