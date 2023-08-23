@@ -8,11 +8,12 @@ require_once __DIR__ . '/../part/navi.php';
 require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
 require_once __DIR__ . '/../function/function.php';
+require_once __DIR__ . '/../function/aws.php';
 
 //リダイレクト先のURLを取得
 $fullURL = getFullUrl('hp.php');
 
-if($_GET['crud'] == 'delete'){
+if(isset($_GET['crud']) && $_GET['crud'] == 'delete'){
     //delete record番号は配列で渡す必要がある
     $ids = array();
     $ids[] = $_GET['record'];
@@ -42,7 +43,7 @@ $comment = postInit($_POST['comment']);
 $file = fileUpload('uploadedFile', $record);
 
 if($crud == 'insert'){//新規追加の場合：insertモード
-
+    $result = s3PutObject($_FILES['uploadedFile'], $record);
     $body = [//insert用データ
         'app'    => APP_ID_READING,
         'record' => [
@@ -61,7 +62,7 @@ if($crud == 'insert'){//新規追加の場合：insertモード
     exit;
 } 
 if($crud == 'update') {//それ以外：updateモード
-
+    $result = s3PutObject($_FILES['uploadedFile'], $record);
     $body = [//update用データ
         'app'    => APP_ID_READING,
         'id'     => $record, //読書テーブルのキー

@@ -7,12 +7,14 @@ require_once __DIR__ . '/../part/source.php';
 require_once __DIR__ . '/../part/navi.php';
 require_once __DIR__ . '/../part/header.php';
 require_once __DIR__ . '/../function/kintoneAPI.php';
+require_once __DIR__ . '/../function/aws.php';
 
 //kintoneからデータ取得
 $data_reading = array();
 $where = 'user_record =' . $_SESSION['userID'];
 $data_reading = kintone_select(KINTONE_DOMAIN, API_TOKEN_READING, APP_ID_READING, $where);
 $url_insert = 'create.php?crud=insert';
+// var_dump($_SERVER['HTTP_USER_AGENT']);
 ?>
 
 <script type="text/javascript">
@@ -23,11 +25,11 @@ $url_insert = 'create.php?crud=insert';
 
 <input type="button" class="btn btn-secondary" value="履歴一覧" disabled>
 <a class="btn btn-warning btn-sm mx-3" href="<?= $url_insert ?>" role="button">新規</a> 
-<div class="table">
+<div class="table-container">
     <table class="table-info" id="fav-table">
-        <thead>
+        <thead class="titlehead">
             <tr>
-                <th scope="col">選択</th>
+                <!-- <th scope="col" width=3%>選択</th> -->
                 <th scope="col">#</th>
                 <th scope="col">画像</th>
                 <th scope="col">書籍名</th>
@@ -51,22 +53,24 @@ $url_insert = 'create.php?crud=insert';
         $update = isset($data_reading['records'][0]['更新日時']['value']) ? date('Y-m-d H:i:s', strtotime($data_reading['records'][0]['更新日時']['value'])) : '';
 
         $img = 'files/' . $record .'/' . $fileName;
+
+        // $img = s3GetObject($fileName, $record);
+        // var_dump($img);
     ?>
             <tr>
-                <th width=60px>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <!-- <th style="text-align: center;">
+                    <div class="form-check" style="text-align: center;">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin: 0 auto; display: block;">
                     </div>
-                </th>
+                </th> -->
                 <th scope="row"><?= $i+1 ?></th>
                 <td>
-                <img src="<?= $img ?? '' ?>" class="img-thumbnail" style="width: 100px; height: 100px;">       
-                <!-- <img src="" class="img-responsive" >        -->
+                <img src="<?= $img ?? '' ?>" class="img-thumbnail" style="max-width: 35px">       
                 </td>
-                    <td><?= $data_reading['records'][$i]['書籍名']['value'] ?></td>
+                    <td class="bookname"><?= $data_reading['records'][$i]['書籍名']['value'] ?></td>
                     <td><?= $data_reading['records'][$i]['作者']['value'] ?></td>
                     <td><?= $data_reading['records'][$i]['タイプ']['value'] ?></td>
-                    <td><?= $data_reading['records'][$i]['感想']['value'] ?></td>
+                    <td class="comment"><?= $data_reading['records'][$i]['感想']['value'] ?></td>
                     <td><?= $update ?></td>
                 <td>
                 

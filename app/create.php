@@ -83,12 +83,6 @@ foreach (BOOK_TYPE as $key => $value) {
     echo "<option value='" . $value . "' " .  ($bookType == $value ? 'selected' : "") . ">" . $value . "</option>";
 }
 ?>
-                        <!-- <option value="コンピューター・IT" <?= ($bookType == 'コンピューター・IT' ? 'selected' : '') ?>>コンピューター・IT</option>
-                        <option value="社会・政治" <?= ($bookType == '社会・政治' ? 'selected' : '') ?>>社会・政治</option>
-                        <option value="ビジネス・経済" <?= ($bookType == 'ビジネス・経済' ? 'selected' : '') ?>>ビジネス・経済</option>
-                        <option value="小説" <?= ($bookType == '小説' ? 'selected' : '') ?>>小説</option>
-                        <option value="漫画" <?= ($bookType == '漫画' ? 'selected' : '') ?>>漫画</option>
-                        <option value="雑誌" <?= ($bookType == '雑誌' ? 'selected' : '') ?>>雑誌</option> -->
                     </select>
                 </div>
             </div>

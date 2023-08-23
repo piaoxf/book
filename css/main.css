@@ -32,6 +32,8 @@
 
 /* コンテナのスタイル */
 .footer-container {
+  width: 100%; /*フッターを画面幅いっぱいに広げる
+  /* overflow-x: hidden; 横スクロールを制御 */
   position: relative;
   min-height: 50vh;
 }
@@ -40,9 +42,39 @@ footer{
     position: absolute; /*←絶対位置 */
     bottom: 0; /* 下に固定 */
 } 
-/* レスポンシブデザインに対応 */
-@media (max-width: 768px) {
-  footer {
-    padding: 10px;
-  }
+
+
+/* スマートフォン用のスタイル */
+/* @media (max-width: 768px) { */
+  /* .footer-container footer { */
+    /* スマートフォン用の幅を調整 */
+  /* } */
+/* } */
+@media screen and (max-width:480px) {
+
+	/*　この位置に記述する　*/
+	main {
+		width: 100%;
+	}
+  /* .comment, .bookname {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(10ch + 1px); /* 1ch ≈ 1文字の幅 */
+  /* } */
 }
+.table-container {
+  /* width: 100%;
+  table-layout: fixed; /* テーブルの列幅を固定する */
+  /* overflow-x: auto; */ 
+  overflow-x: scroll;
+}
+.table-container table{
+  white-space: nowrap;
+}
+/* .titlehead{
+  background-color: aqua;
+  color: #9b59b6;
+} */
+
+
