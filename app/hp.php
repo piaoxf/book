@@ -52,9 +52,10 @@ $url_insert = 'create.php?crud=insert';
 
         $update = isset($data_reading['records'][0]['更新日時']['value']) ? date('Y-m-d H:i:s', strtotime($data_reading['records'][0]['更新日時']['value'])) : '';
 
-        $img = 'files/' . $record .'/' . $fileName;
-
-        // $img = s3GetObject($fileName, $record);
+        // $img = 'files/' . $record .'/' . $fileName;
+        $localFilePath ='tmp/' . $_SESSION['userID'] . "/" .$record . "/";
+        $img = !file_exists($localFilePath . $fileName) ? s3GetObject($fileName, $record) : $localFilePath . $fileName;
+        
         // var_dump($img);
     ?>
             <tr>

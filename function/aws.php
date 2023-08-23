@@ -63,19 +63,24 @@ function s3GetObject($filename, $record){
     ]);
     // $uploadedFile = $_FILES['uploadedFile'];
     $bucketName = 'php-book-bucket';
-    $fileName = 'book/' . $_SESSION['userID'] . "/" .$record . "/" . $filename;  // アップロードするファイルの名前
+    $filepath = 'book/' . $_SESSION['userID'] . "/" .$record . "/" . $filename;  // アップロードするファイルの名前
+    $localFilePath = 'tmp/' . $_SESSION['userID'] . "/" .$record . "/";
     
     try {
+        if (!is_dir($localFilePath)) {
+            mkdir($localFilePath, 0755, true); // 一時保存ディレクトリを再帰的に作成
+        }
         // ファイルをS3にアップロード
         $result = $s3->getObject([
             'Bucket' => $bucketName,
-            'Key'    => $fileName,
+            'Key'    => $filepath,
+            'SaveAs' => $localFilePath . $filename,
         ]);
-        
+        // var_dump($result);exit;
         // 画像データをbase64エンコード
-        $imageData = base64_encode($result['Body']);
+        // $imageData = base64_encode($result['Body']);
         // var_dump($imageData);exit;
-        return 'data:image/jpeg;base64' . $imageData . '\'';
+        return $localFilePath . $filename;
 
         // 成功した場合の処理
         // echo "ファイルがアップロードされました。";
