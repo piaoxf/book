@@ -34,12 +34,14 @@ function s3PutObject($file, $record){
         $result = $s3->putObject([
             'Bucket' => $bucketName,
             'Key'    => $fileName,
-            'Body'   => fopen($file['tmp_name'], 'rb'),
+            // 'Body'   => fopen($file['tmp_name'], 'rb'),
+            'SourceFile'   => $file['tmp_name'],
         ]);
-        
+        // var_dump($result);exit;
         // 成功した場合の処理
         echo "ファイルがアップロードされました。";
-        return true;
+        return $result['ObjectURL'];
+        // return true;
     
     } catch (Exception $e) {
         // エラー時の処理
@@ -74,14 +76,17 @@ function s3GetObject($filename, $record){
         $result = $s3->getObject([
             'Bucket' => $bucketName,
             'Key'    => $filepath,
-            'SaveAs' => $localFilePath . $filename,
+            // 'SaveAs' => $localFilePath . $filename,
         ]);
         // var_dump($result);exit;
         // 画像データをbase64エンコード
         // $imageData = base64_encode($result['Body']);
         // var_dump($imageData);exit;
-        return $localFilePath . $filename;
-
+        // return $localFilePath . $filename;
+        // var_dump($result['Body']);exit;
+        // $rtn = $result['Body']->getContents();
+        $rtn = $result['Body'];
+return $rtn;
         // 成功した場合の処理
         // echo "ファイルがアップロードされました。";
         // return true;
