@@ -40,12 +40,9 @@ $author = postInit($_POST['author']);
 $bookType = postInit($_POST['bookType']);
 $comment = postInit($_POST['comment']);
 
-$file = fileUpload('uploadedFile', $record);
-$result = s3PutObject($_FILES['uploadedFile'], $record);
-// var_dump($result);exit;
+$file = fileUpload($_FILES['uploadedFile'], $record);
 if($crud == 'insert'){//新規追加の場合：insertモード
-    // $result = s3PutObject($_FILES['uploadedFile'], $record);
-    // var_dump($result);exit;
+
     $body = [//insert用データ
         'app'    => APP_ID_READING,
         'record' => [
@@ -64,7 +61,7 @@ if($crud == 'insert'){//新規追加の場合：insertモード
     exit;
 } 
 if($crud == 'update') {//それ以外：updateモード
-    // $result = s3PutObject($_FILES['uploadedFile'], $record);
+
     $body = [//update用データ
         'app'    => APP_ID_READING,
         'id'     => $record, //読書テーブルのキー

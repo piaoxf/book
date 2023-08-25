@@ -49,25 +49,15 @@ $url_insert = 'create.php?crud=insert';
             for($i=0; $i<count($data_reading['records']); $i++){
             $record = $data_reading['records'][$i]['record']['value'];
             $fileName = $data_reading['records'][$i]['filename']['value'];
+            $file_url = $data_reading['records'][$i]['fileURL']['value'];
             $url_update = 'create.php' . '?record=' . $record . '&crud=update';
             $url_delete = 'create_registration.php' . '?record=' . $record . '&crud=delete';
-    
             $update = isset($data_reading['records'][0]['更新日時']['value']) ? date('Y-m-d H:i:s', strtotime($data_reading['records'][0]['更新日時']['value'])) : '';
-    
-            // $img = 'files/' . $record .'/' . $fileName;
-            $localFilePath ='tmp/' . $_SESSION['userID'] . "/" .$record . "/";
- 
-            $img = !file_exists($localFilePath . $fileName) ? s3GetObject($fileName, $record) : $localFilePath . $fileName;
-            
-            // var_dump($img);
-            // var_dump($localFilePath . $fileName);
-            // var_dump(s3GetObject($fileName, $record));
-            copy(s3GetObject($fileName, $record), 'tmp/999.jpg');
         ?>
 
                 <tr>                   
                     <td scope="row"><center><?= $i+1 ?></center></td>
-                    <td><img src="<?= $img ?? '' ?>"  style="max-width: 35px"></td>
+                    <td><img src="<?= $file_url ?>"  style="max-width: 35px"></td>
                     <td class="bookname"><?= $data_reading['records'][$i]['書籍名']['value'] ?></td>
                     <td><?= $data_reading['records'][$i]['作者']['value'] ?></td>
                     <td><?= $data_reading['records'][$i]['タイプ']['value'] ?></td>

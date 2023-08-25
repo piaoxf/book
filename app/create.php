@@ -42,7 +42,7 @@ $update = isset($datas['records'][0]['更新日時']['value']) ? date('Y-m-d H:i
             </div>
             <div class="row">
                 <div class="text-center">
-                    <img src="<?= $img ?>" class="rounded" style="width: 10%;" alt="...">
+                    <img src="<?= $fileURL ?>" class="rounded" style="width: 10%;" alt="...">
                 </div>
             </div>
 
