@@ -74,4 +74,19 @@ footer{
   white-space: nowrap;
   /* border: dashed #141313; */
 }
+#fav-table th{
+  background-color: rgba(230, 26, 26, 0.226);
+  /* font-size: 16px; */
+}
+#fav-table td{
+  background-color: rgba(255, 255, 255, 0.982);
+  border-color: black;
+  /* font-size: 16px; */
+}
+#new_button {
+  text-align: right;
+}
+/* .thead th{
+  background-color: pink;
+} */
 

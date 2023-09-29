@@ -29,7 +29,8 @@ $url_insert = 'create.php?crud=insert';
     <div class="table-container">
         <!-- <table class="table-info table-bordered" id="fav-table"> -->
         <table class="table table-bordered" id="fav-table">
-            <thead class="titlehead">
+        <!-- <table class="table table-bordered" style="background-color: red;"> -->
+            <thead class="titlehead" id='thead'>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">画像</th>

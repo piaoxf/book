@@ -51,7 +51,7 @@ function getFullUrl2($fileName=''){
 function getIndexUrl(){
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'];
-    $fullURL = 'Location: ' . $protocol . '://' . $host . '/book/';
+    $fullURL = 'Location: ' . $protocol . '://' . $host;
     return $fullURL;
 }
 /**
